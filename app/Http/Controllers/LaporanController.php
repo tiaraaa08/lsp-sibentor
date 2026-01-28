@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\layanan;
 use App\Models\pelanggan;
 use App\Models\transaksi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LaporanController extends Controller
@@ -24,7 +25,7 @@ class LaporanController extends Controller
 
     public function beranda()
     {
-        $transaksi = transaksi::all();
+        $transaksi = transaksi::whereDate('tanggal_transaksi', Carbon::today())->get();
         $pelanggan = pelanggan::count();
         $layanan = layanan::count();
 
