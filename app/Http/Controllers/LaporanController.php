@@ -10,18 +10,30 @@ use Illuminate\Http\Request;
 
 class LaporanController extends Controller
 {
-    public function index(Request $request)
-    {
-        // $transaksi = transaksi::all();
-        $query = transaksi::with(['layanan', 'pelanggan']);
+   public function index(Request $request)
+{
+    $query = Transaksi::query();
 
-        if ($request->tanggal) {
-            $query->whereDate('tanggal_transaksi', $request->tanggal);
-        }
-
-        $transaksi = $query->get();
-        return view('laporan.main', compact('transaksi'));
+    if ($request->hariMulai && !$request->hariAkhir) {
+        $query->whereDate('tanggal_transaksi', '>=', $request->hariMulai);
     }
+
+    if (!$request->hariMulai && $request->hariAkhir) {
+        $query->whereDate('tanggal_transaksi', '<=', $request->hariAkhir);
+    }
+
+    if ($request->hariMulai && $request->hariAkhir) {
+        $query->whereBetween('tanggal_transaksi', [
+            $request->hariMulai,
+            $request->hariAkhir
+        ]);
+    }
+
+    $transaksi = $query->get();
+
+    return view('laporan.main', compact('transaksi'));
+}
+
 
     public function beranda()
     {

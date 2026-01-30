@@ -34,8 +34,10 @@
                         <div class="col-4">
                             <div class="input-group float-end">
                                 <span class="input-group-text" id="basic-addon1">Tampilkan</span>
-                                <input type="date" class="w-auto form-control hariCetak" value="{{ request('tanggal') }}"
-                                    onchange="filterTanggal(this.value)">
+                                <input type="date" class="w-auto form-control hariMulai" value="{{ request('hariMulai') }}"
+                                    onchange="filterTanggal()">
+                                <input type="date" class="w-auto form-control hariAkhir" value="{{ request('hariAkhir') }}"
+                                    onchange="filterTanggal()">
                                 <button type="button" class="btn btn-success btn-sm" onclick="printTable()"></i>&nbsp;
                                     Cetak</button>
                             </div>
@@ -72,7 +74,7 @@
 @endsection
 @push('scripts')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#laporanTable').DataTable({
                 language: {
                     emptyTable: '<span class="text-danger"> Data transaksi tidak tersedia pada waktu</span>'
@@ -80,44 +82,51 @@
             });
         });
 
-        function filterTanggal(tanggal) {
-            if (tanggal === '') {
-                window.location.href = "{{ route('laporan.main') }}";
-            } else {
-                window.location.href = `?tanggal=${tanggal}`;
-            }
+        function filterTanggal() {
+            const mulai = document.querySelector('.hariMulai')?.value;
+            const akhir = document.querySelector('.hariAkhir')?.value;
+            let params = [];
+
+            if (mulai) params.push(`hariMulai=${mulai}`);
+            if (akhir) params.push(`hariAkhir=${akhir}`);
+            const query = params.length ? `?${params.join('&')}` : '';
+            window.location.href = query;
         }
 
         function printTable() {
             const printable = document.getElementById('printTable');
             const originalBody = document.body.innerHTML;
 
-            // DESTROY datatable (INI KUNCINYA)
             const table = $('#laporanTable').DataTable();
             table.destroy();
 
-            // ambil tanggal
-            const tanggalInput = document.querySelector('.hariCetak')?.value;
-            const tanggal = tanggalInput ? tanggalInput : 'Semua Tanggal';
+            const hariMulai = document.querySelector('.hariMulai')?.value;
+            const hariAkhir = document.querySelector('.hariAkhir')?.value;
+            let tanggal = 'Semua Tanggal';
 
-            // kop surat via JS
+            if (hariMulai && hariAkhir) {
+                tanggal = `${hariMulai} sampai ${hariAkhir}`;
+            } else if (hariMulai) {
+                tanggal = `Mulai ${hariMulai}`;
+            } else if (hariAkhir) {
+                tanggal = `Sampai ${hariAkhir}`;
+            }
+
+
             const kopSurat = `
-            <div style="text-align:center; margin-bottom:20px;">
-                <h3 style="margin:0;">LAPORAN TRANSAKSI</h3>
-                <p style="margin:5px 0;">Transaksi Tanggal ${tanggal}</p>
-                <hr>
-            </div>
-        `;
+                    <div style="text-align:center; margin-bottom:20px;">
+                        <h3 style="margin:0;">LAPORAN TRANSAKSI</h3>
+                        <p style="margin:5px 0;">Transaksi Tanggal ${tanggal}</p>
+                        <hr>
+                    </div>
+                `;
 
-            // print cuma kop + tabel polos
             document.body.innerHTML = kopSurat + printable.innerHTML;
 
             window.print();
 
-            // balikin halaman
             document.body.innerHTML = originalBody;
 
-            // HIDUPIN LAGI datatable setelah print
             $('#laporanTable').DataTable({
                 language: {
                     emptyTable: '<span class="text-danger"> Data transaksi tidak tersedia pada waktu</span>'
