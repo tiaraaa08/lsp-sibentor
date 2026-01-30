@@ -34,20 +34,15 @@
                         <div class="col-5">
                             <div class="input-group float-end d-flex align-items-center">
                                 <span class="input-group-text">Tampil</span>
-
                                 <input type="date" class="form-control hariMulai" value="{{ request('hariMulai') }}"
                                     oninput="filterTanggal()">
-
                                 <span class="fw-semibold">–</span>
-
                                 <input type="date" class="form-control hariAkhir" value="{{ request('hariAkhir') }}"
                                     oninput="filterTanggal()">
-
                                 <button type="button" class="btn btn-success" onclick="printTable()">
                                     Cetak
                                 </button>
                             </div>
-
                         </div>
                     </div>
                 </div>
