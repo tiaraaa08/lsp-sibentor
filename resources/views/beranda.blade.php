@@ -9,8 +9,8 @@
                     </h3>
                     <h3 class="text-primary">Jumlah Layanan</h3>
                 </div>
-                <div>
-                    <img src="{{ asset('logo.png') }}" style="width:30px" alt="">
+                <div class="display-6 text-primary">
+                   <i class="fa fa-list-alt"></i>
                 </div>
             </div>
         </div>
@@ -24,8 +24,8 @@
                     </h3>
                     <h3 class="">Jumlah Pelanggan</h3>
                 </div>
-                <div>
-                    <img src="{{ asset('logo.png') }}" style="width:30px" alt="">
+                <div class="display-6">
+                <i class="fa fa-users"></i>
                 </div>
             </div>
         </div>
@@ -39,8 +39,8 @@
                     </h3>
                     <h3 class="">Transaksi Service</h3>
                 </div>
-                <div>
-                    <img src="{{ asset('logo.png') }}" style="width:30px" alt="">
+                <div class="display-6">
+                  <i class="fa fa-money"></i>
                 </div>
             </div>
         </div>

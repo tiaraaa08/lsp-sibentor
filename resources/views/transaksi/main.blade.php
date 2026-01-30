@@ -42,13 +42,13 @@
                                                 class="konfirmasiHapus">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="delete" class="btn btn-danger btn-sm"><i
+                                                <button type="delete" class="btn btn-danger btn"><i
                                                         class="fa fa-trash"></i>&nbsp;
                                                     Hapus</button>
                                             </form>
                                             <a href="{{ route('struk', $t->id) }}">
                                                 <button type="button" class="btn btn-success"><i
-                                                        class="fa-solid fa-print"></i></button>
+                                                        class="fa fa-print"></i></button>
                                             </a>
                                         </div>
                                     </td>
