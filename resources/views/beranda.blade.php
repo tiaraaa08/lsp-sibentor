@@ -2,33 +2,46 @@
 @section('top-card')
     <div class="col-sm-4 col-lg-4">
         <div class="card text-white border border-primary border-top-0 bg-primary-subtle">
-            <div class="card-body">
-                <h3 class="mb-0">
-                    <span class="count text-primary">{{$layanan}}</span>
-                </h3>
-                <h3 class="text-primary">Jumlah Layanan</h3>
-
+            <div class="card-body d-flex justify-content-between">
+                <div>
+                    <h3 class="mb-0">
+                        <span class="count text-primary">{{$layanan}}</span>
+                    </h3>
+                    <h3 class="text-primary">Jumlah Layanan</h3>
+                </div>
+                <div class="display-6 text-primary">
+                   <i class="fa fa-list-alt"></i>
+                </div>
             </div>
-
         </div>
     </div>
     <div class="col-sm-4 col-lg-4 px-3">
         <div class="card border text-success border-success border-top-0 bg-success-subtle">
-            <div class="card-body">
-                <h3 class="mb-0">
-                    <span class="count">{{$pelanggan}}</span>
-                </h3>
-                <h3 class="">Jumlah Pelanggan</h3>
+            <div class="card-body d-flex justify-content-between">
+                <div>
+                    <h3 class="mb-0">
+                        <span class="count">{{$pelanggan}}</span>
+                    </h3>
+                    <h3 class="">Jumlah Pelanggan</h3>
+                </div>
+                <div class="display-6">
+                <i class="fa fa-users"></i>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-sm-4 col-lg-4">
         <div class="card text-warning border border-warning border-top-0 bg-warning-subtle">
-            <div class="card-body">
-                <h3 class="mb-0">
-                    <span class="count">{{$transaksi->count()}}</span>
-                </h3>
-                <h3 class="">Transaksi Service</h3>
+            <div class="card-body d-flex justify-content-between">
+                <div>
+                    <h3 class="mb-0">
+                        <span class="count">{{$transaksi->count()}}</span>
+                    </h3>
+                    <h3 class="">Transaksi Service</h3>
+                </div>
+                <div class="display-6">
+                  <i class="fa fa-money"></i>
+                </div>
             </div>
         </div>
     </div>

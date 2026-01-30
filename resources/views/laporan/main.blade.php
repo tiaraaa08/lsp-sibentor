@@ -28,18 +28,26 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-7">
                             <strong class="align-middle card-title">Laporan Transaksi</strong>
                         </div>
-                        <div class="col-4">
-                            <div class="input-group float-end">
-                                <span class="input-group-text" id="basic-addon1">Tampilkan</span>
-                                <input type="date" class="w-auto form-control hariMulai" style="width:20px;" value="{{ request('hariMulai') }}"
-                                    onchange="filterTanggal()">
-                                <input type="date" class="w-auto form-control hariAkhir" style="width:20px;" value="{{ request('hariAkhir') }}"
-                                    onchange="filterTanggal()">
-                                <button type="button" class="btn btn-success btn-sm" onclick="printTable()"></i>Cetak</button>
+                        <div class="col-5">
+                            <div class="input-group float-end d-flex align-items-center">
+                                <span class="input-group-text">Tampil</span>
+
+                                <input type="date" class="form-control hariMulai" value="{{ request('hariMulai') }}"
+                                    oninput="filterTanggal()">
+
+                                <span class="fw-semibold">–</span>
+
+                                <input type="date" class="form-control hariAkhir" value="{{ request('hariAkhir') }}"
+                                    oninput="filterTanggal()">
+
+                                <button type="button" class="btn btn-success" onclick="printTable()">
+                                    Cetak
+                                </button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -82,14 +90,25 @@
         });
 
         function filterTanggal() {
-            const mulai = document.querySelector('.hariMulai')?.value;
-            const akhir = document.querySelector('.hariAkhir')?.value;
-            let params = [];
+            const mulai = document.querySelector('.hariMulai').value;
+            const akhir = document.querySelector('.hariAkhir').value;
 
-            if (mulai) params.push(`hariMulai=${mulai}`);
-            if (akhir) params.push(`hariAkhir=${akhir}`);
-            const query = params.length ? `?${params.join('&')}` : '';
-            window.location.href = query;
+            const params = new URLSearchParams();
+
+            if (mulai !== '') params.set('hariMulai', mulai);
+            if (akhir !== '') params.set('hariAkhir', akhir);
+
+            const query = params.toString();
+            window.location.href = query ? `?${query}` : window.location.pathname;
+        }
+
+        function formatTanggal(tanggal) {
+            if (!tanggal) return '';
+            return new Intl.DateTimeFormat('id-ID', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            }).format(new Date(tanggal));
         }
 
         function printTable() {
@@ -101,23 +120,23 @@
 
             const hariMulai = document.querySelector('.hariMulai')?.value;
             const hariAkhir = document.querySelector('.hariAkhir')?.value;
-            let tanggal = 'Semua Tanggal';
+            let tanggal = 'Keseluruhan';
 
             if (hariMulai && hariAkhir) {
-                tanggal = `${hariMulai} sampai ${hariAkhir}`;
+                tanggal = `${formatTanggal(hariMulai)} sampai ${formatTanggal(hariAkhir)}`;
             } else if (hariMulai) {
-                tanggal = `Mulai ${hariMulai}`;
+                tanggal = `mulai ${formatTanggal(hariMulai)}`;
             } else if (hariAkhir) {
-                tanggal = `Sampai ${hariAkhir}`;
+                tanggal = `sampai ${formatTanggal(hariAkhir)}`;
             }
 
             const kopSurat = `
-                <div style="text-align:center; margin-bottom:20px;">
-                    <h3 style="margin:0;">LAPORAN TRANSAKSI</h3>
-                    <p style="margin:5px 0;">Transaksi Tanggal ${tanggal}</p>
-                    <hr>
-                </div>
-            `;
+                    <div style="text-align:center; margin-bottom:20px;">
+                        <h3 style="margin:0;">LAPORAN TRANSAKSI</h3>
+                        <p style="margin:5px 0;">Transaksi ${tanggal}</p>
+                        <hr>
+                    </div>
+                `;
 
             document.body.innerHTML = kopSurat + printable.innerHTML;
 
