@@ -131,17 +131,19 @@
             }
 
             const kopSurat = `
-                    <div style="text-align:center; margin-bottom:20px;">
-                        <h3 style="margin:0;">LAPORAN TRANSAKSI</h3>
-                        <p style="margin:5px 0;">Transaksi ${tanggal}</p>
-                        <hr>
+                <div style="text-align:center; margin-bottom:20px;">
+                <img src="{{ asset('logo.png') }}" style="width:40px;"></img>
+                    <h4>LAPORAN TRANSAKSI</h4>
+                    <h3>Si-Bengkel Motor</h3>
+                    <div style="display:flex; justify-content:space-between; margin-top:10px;">
+                        <div>Nama : Tiara</div>
+                        <div>Transaksi ${tanggal}</div>
                     </div>
-                `;
-
+                    <hr>
+                </div>
+            `;
             document.body.innerHTML = kopSurat + printable.innerHTML;
-
             window.print();
-
             document.body.innerHTML = originalBody;
         }
     </script>
