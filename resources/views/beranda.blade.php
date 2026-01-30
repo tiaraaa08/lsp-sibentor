@@ -67,7 +67,7 @@
                             @foreach ($transaksi as $t)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $t->tanggal_transaksi }}</td>
+                                    <td>{{ Carbon\carbon::parse($t->tanggal_transaksi)->translatedFormat('d F Y') }}</td>
                                     <td>{{$t->pelanggan->nama_pelanggan}}</td>
                                     <td>{{ $t->layanan->nama_layanan }}</td>
                                 </tr>

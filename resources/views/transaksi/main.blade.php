@@ -32,7 +32,7 @@
                                 <td>{{ $t->pelanggan->nama_pelanggan }}</td>
                                 <td>{{$t->layanan->nama_layanan}}</td>
                                 <td>Rp {{number_format($t->layanan->harga_layanan, 0, ',', '.')}}</td>
-                                <td>{{ $t->tanggal_transaksi }}</td>
+                                <td>{{ Carbon\carbon::parse($t->tanggal_transaksi)->translatedFormat('d F Y') }}</td>
                                 <td>
                                     <div class="d-flex gap-2">
                                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
