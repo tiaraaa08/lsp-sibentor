@@ -72,7 +72,7 @@
 @endsection
 @push('scripts')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#laporanTable').DataTable({
                 language: {
                     emptyTable: '<span class="text-danger"> Data transaksi tidak tersedia pada waktu</span>'
@@ -102,12 +102,12 @@
 
             // kop surat via JS
             const kopSurat = `
-            <div style="text-align:center; margin-bottom:20px;">
-                <h3 style="margin:0;">LAPORAN TRANSAKSI</h3>
-                <p style="margin:5px 0;">Transaksi Tanggal ${tanggal}</p>
-                <hr>
-            </div>
-        `;
+                <div style="text-align:center; margin-bottom:20px;">
+                    <h3 style="margin:0;">LAPORAN TRANSAKSI</h3>
+                    <p style="margin:5px 0;">Transaksi Tanggal ${tanggal}</p>
+                    <hr>
+                </div>
+            `;
 
             // print cuma kop + tabel polos
             document.body.innerHTML = kopSurat + printable.innerHTML;
@@ -116,13 +116,6 @@
 
             // balikin halaman
             document.body.innerHTML = originalBody;
-
-            // HIDUPIN LAGI datatable setelah print
-            $('#laporanTable').DataTable({
-                language: {
-                    emptyTable: '<span class="text-danger"> Data transaksi tidak tersedia pada waktu</span>'
-                }
-            });
         }
     </script>
 @endpush

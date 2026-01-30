@@ -31,4 +31,10 @@ class LaporanController extends Controller
 
         return view('beranda', compact('transaksi', 'layanan', 'pelanggan'));
     }
+
+    public function struk($id)
+    {
+        $struk = transaksi::find($id);
+        return view('laporan.struk', compact('struk'));
+    }
 }

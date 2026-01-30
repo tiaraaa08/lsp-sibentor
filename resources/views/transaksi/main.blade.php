@@ -27,27 +27,33 @@
                         </thead>
                         <tbody>
                             @foreach ($transaksi as $t)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $t->pelanggan->nama_pelanggan }}</td>
-                                <td>{{$t->layanan->nama_layanan}}</td>
-                                <td>Rp {{number_format($t->layanan->harga_layanan, 0, ',', '.')}}</td>
-                                <td>{{ $t->tanggal_transaksi }}</td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#editTransaksi{{ $t->id }}"><i class="fa fa-pencil"></i>&nbsp;
-                                            Edit</button>
-                                        <form action="{{ route('transaksi.destroy',$t->id) }}" method="POST" class="konfirmasiHapus">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;
-                                                Hapus</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                            @include('transaksi.edit')
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $t->pelanggan->nama_pelanggan }}</td>
+                                    <td>{{$t->layanan->nama_layanan}}</td>
+                                    <td>Rp {{number_format($t->layanan->harga_layanan, 0, ',', '.')}}</td>
+                                    <td>{{ $t->tanggal_transaksi }}</td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#editTransaksi{{ $t->id }}"><i class="fa fa-pencil"></i>&nbsp;
+                                                Edit</button>
+                                            <form action="{{ route('transaksi.destroy', $t->id) }}" method="POST"
+                                                class="konfirmasiHapus">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="delete" class="btn btn-danger btn-sm"><i
+                                                        class="fa fa-trash"></i>&nbsp;
+                                                    Hapus</button>
+                                            </form>
+                                            <a href="{{ route('struk', $t->id) }}">
+                                                <button type="button" class="btn btn-success"><i
+                                                        class="fa-solid fa-print"></i></button>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @include('transaksi.edit')
                             @endforeach
                         </tbody>
                     </table>

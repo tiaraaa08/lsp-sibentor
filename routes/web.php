@@ -39,3 +39,4 @@ Route::delete('transaksi/destroy/{id}', [TransaksiController::class, 'destroy'])
 
 route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.main');
 route::get('/', [LaporanController::class, 'beranda'])->name('beranda');
+route::get('struk/{id}', [LaporanController::class, 'struk'])->name('struk');
