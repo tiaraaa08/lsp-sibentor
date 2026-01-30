@@ -88,33 +88,44 @@
             }
         }
 
+        function formatTanggalID(tanggal) {
+            if (!tanggal) return '';
+            return new Intl.DateTimeFormat('id-ID', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            }).format(new Date(tanggal));
+        }
+
         function printTable() {
             const printable = document.getElementById('printTable');
             const originalBody = document.body.innerHTML;
 
-            // DESTROY datatable (INI KUNCINYA)
             const table = $('#laporanTable').DataTable();
             table.destroy();
 
-            // ambil tanggal
             const tanggalInput = document.querySelector('.hariCetak')?.value;
-            const tanggal = tanggalInput ? tanggalInput : 'Semua Tanggal';
+            let tanggal = 'Keseluruhan';
+            if (tanggalInput) {
+                tanggal = formatTanggalID(tanggalInput);
+            }
 
-            // kop surat via JS
             const kopSurat = `
                 <div style="text-align:center; margin-bottom:20px;">
-                    <h3 style="margin:0;">LAPORAN TRANSAKSI</h3>
-                    <p style="margin:5px 0;">Transaksi Tanggal ${tanggal}</p>
+                    <h4>LAPORAN TRANSAKSI</h4>
+                    <h3>Si-Bengkel Motor</h3>
+                    <div style="display:flex; justify-content:space-between; margin-top:10px;">
+                        <div>Nama : Tiara</div>
+                        <div>Tanggal ${tanggal}</div>
+                    </div>
                     <hr>
                 </div>
             `;
 
-            // print cuma kop + tabel polos
             document.body.innerHTML = kopSurat + printable.innerHTML;
 
             window.print();
 
-            // balikin halaman
             document.body.innerHTML = originalBody;
         }
     </script>
