@@ -34,12 +34,11 @@
                         <div class="col-4">
                             <div class="input-group float-end">
                                 <span class="input-group-text" id="basic-addon1">Tampilkan</span>
-                                <input type="date" class="w-auto form-control hariMulai" value="{{ request('hariMulai') }}"
+                                <input type="date" class="w-auto form-control hariMulai" style="width:20px;" value="{{ request('hariMulai') }}"
                                     onchange="filterTanggal()">
-                                <input type="date" class="w-auto form-control hariAkhir" value="{{ request('hariAkhir') }}"
+                                <input type="date" class="w-auto form-control hariAkhir" style="width:20px;" value="{{ request('hariAkhir') }}"
                                     onchange="filterTanggal()">
-                                <button type="button" class="btn btn-success btn-sm" onclick="printTable()"></i>&nbsp;
-                                    Cetak</button>
+                                <button type="button" class="btn btn-success btn-sm" onclick="printTable()"></i>Cetak</button>
                             </div>
                         </div>
                     </div>
@@ -112,26 +111,19 @@
                 tanggal = `Sampai ${hariAkhir}`;
             }
 
-
             const kopSurat = `
-                    <div style="text-align:center; margin-bottom:20px;">
-                        <h3 style="margin:0;">LAPORAN TRANSAKSI</h3>
-                        <p style="margin:5px 0;">Transaksi Tanggal ${tanggal}</p>
-                        <hr>
-                    </div>
-                `;
+                <div style="text-align:center; margin-bottom:20px;">
+                    <h3 style="margin:0;">LAPORAN TRANSAKSI</h3>
+                    <p style="margin:5px 0;">Transaksi Tanggal ${tanggal}</p>
+                    <hr>
+                </div>
+            `;
 
             document.body.innerHTML = kopSurat + printable.innerHTML;
 
             window.print();
 
             document.body.innerHTML = originalBody;
-
-            $('#laporanTable').DataTable({
-                language: {
-                    emptyTable: '<span class="text-danger"> Data transaksi tidak tersedia pada waktu</span>'
-                }
-            });
         }
     </script>
 @endpush
